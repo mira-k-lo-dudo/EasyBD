@@ -23,6 +23,7 @@ Para crear una variable de este tipo, y además realizar la conexion con el SGBD
 * BASE_DE_DATOS: Base de datos sobre la que vamos a trabajar.
 
 Ejemplo:
+
 	<?php
     include "easybd.class.php";
     $bd=new EasyBD("localhost","root","","PRUEBA");
