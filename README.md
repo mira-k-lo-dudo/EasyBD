@@ -1,5 +1,5 @@
-CLASE PARA ACCESO AL SGBD
-=========================
+EASYBD CLASE PARA FACILITAR EL ACCESO AL SGBD
+=============================================
 
 EasyBD es una clase realizada en PHP que permite accesos a MySQL/MariaDB de manera fácil, sencilla y sin necesidad de conocer las sentencias SQL para ello. 
 
