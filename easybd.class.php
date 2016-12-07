@@ -25,14 +25,14 @@ class EasyBD {
 		else return true;
 	}
 
-	/*  insertar recibe el nombre de una tabla y un array de elementos
+	/*  insertarTodos recibe el nombre de una tabla y un array de elementos
 	que seran insertados en dicha tabla ordenados en el mismo 
 	orden que estan la tabla 
 	
 	 devuelve true si se ha podido realizar la inserccion
 	y false si no ha sido posible */
 
-	public function insertar($tabla,$elementos) {
+	public function insertarTodos($tabla,$elementos) {
 		if ($this->existe($tabla))
 		{
 		$cadena="(";
@@ -52,6 +52,45 @@ class EasyBD {
 		$cadena=$cadena.")";
 
 		$insert="INSERT INTO $tabla VALUES $cadena";
+		 if ($this->bd->query($insert)) return true;
+		 else return false;
+		}
+		else return false;
+	}
+
+/*  insertarParcial recibe el nombre de una tabla, los campos que seran insertados (pueden ir desordenados)
+    y un array de elementos que seran insertados en dicha tabla, hay que tener cuidado pues hay ciertos campos
+    que por definición son NOT NULL  y por tanto obligatoriamente deberán ser insertados ya que si no esta 
+    insercción fallará 
+	
+	 devuelve true si se ha podido realizar la inserccion y false si no ha sido posible */
+public function insertarParcial($tabla,$campos,$elementos) {
+		if ($this->existe($tabla))
+		{
+		$queinsertar="(";
+			foreach($campos as $campo) {
+				$queinsertar=$queinsertar."'$campo', ";
+			}
+		$queinsertar= substr($queinsertar, 0, -1);
+		$queinsertar=$queinsertar.")";
+
+		$cadena="(";
+		foreach ($elementos as $dato) {
+			$tipo=gettype($dato);
+			switch ($tipo) {
+				case 'integer':
+				case 'double':
+					$cadena=$cadena.$dato;
+					break;
+				default:
+					$cadena=$cadena."'".$dato."'";
+			}
+			$cadena=$cadena.",";
+		}
+		$cadena= substr($cadena, 0, -1);
+		$cadena=$cadena.")";
+
+		$insert="INSERT INTO $tabla $queinsertar VALUES $cadena";
 		 if ($this->bd->query($insert)) return true;
 		 else return false;
 		}
