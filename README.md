@@ -44,14 +44,14 @@ Ejemplo:
     ?>`
 
 ## insertarParcial(TABLA,ARRAY_DE_ELEMENTOS)
-insertarParcial recibe el nombre de una tabla, los campos que seran insertados (pueden ir desordenados) y un array de elementos que seran insertados en dicha tabla, hay que tener cuidado pues hay ciertos campos que por definición son NOT NULL  y por tanto obligatoriamente deberán ser insertados ya que si no esta insercción fallará.
+insertarParcial recibe el nombre de una tabla, los campos que seran insertados (pueden ir desordenados) y un array de elementos que seran insertados en dicha tabla (siguiendo el orden del array anterior), hay que tener cuidado pues hay ciertos campos que por definición son NOT NULL  y por tanto obligatoriamente deberán ser insertados ya que si no esta insercción fallará.
 
 Devuelve true si se ha podido realizar la inserccion y false si no ha sido posible
 
 Ejemplo:
 
 `<?php
-    if ($bd->insertar('MARCA',[1,'SEAT'])) 
+    if ($bd->insertarParcial('MARCA',['ID_MARCA','NOMBRE_MARCA'],[2,'AUDI'])) 
     	echo "Se ha realizado la inserccion";
     else 
     	echo "NO se ha podido insertar";
