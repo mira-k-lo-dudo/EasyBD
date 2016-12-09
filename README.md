@@ -54,6 +54,18 @@ Ejemplo:
     else 
     	echo "NO se ha podido insertar";
  ```
+##consultarTodos(ARRAY_DE_TABLA,ARRAY_DE_CONDICIONES,ARRAY_DE_PARAMETROS)
+Para usar consultarTodos es obligatorio indicar al menos una tabla donde hacer la consulta (soporta array de tablas permitiendo hacer joins entre ellas), mientras que puedo omitir las condiciones y los parametros, en caso de utilizar condiciones y parametros debes pasarselas mediante un array, como he indicado anteriormente soporta joins.
+
+Devuelve un array bidimensional con los datos obtenidos o un array vacio en caso de no poder realizar la consulta.
+
+Ejemplos:
+```php
+$resultado=$bd->consultarTodos(['MARCA']);
+print_r($resultado);
+```
+
+
 
 ## Licencia
 
