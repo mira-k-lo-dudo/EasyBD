@@ -23,12 +23,12 @@ Para crear una variable de este tipo, y además realizar la conexion con el SGBD
 * BASE_DE_DATOS: Base de datos sobre la que vamos a trabajar.
 
 Ejemplo:
-
+```php
 	<?php
     include "easybd.class.php";
     $bd=new EasyBD("localhost","root","","PRUEBA");
     ?>
-    
+ ```   
 ## insertarTodos(TABLA,ARRAY_DE_ELEMENTOS)
 insertar recibe el nombre de una tabla y un array de elementos que seran insertados en dicha tabla ordenados en el mismo orden que estan la tabla. 
 
@@ -36,7 +36,7 @@ Devuelve true si se ha podido realizar la inserccion y false si no ha sido posib
 
 Ejemplo:
 
-```
+```php
 <?php
     if ($bd->insertarTodos('MARCA',[1,'SEAT'])) 
     	echo "Se ha realizado la inserccion";
@@ -52,7 +52,7 @@ Devuelve true si se ha podido realizar la inserccion y false si no ha sido posib
 
 Ejemplo:
 
-```
+```php
 <?php
     if ($bd->insertarParcial('MARCA',['ID_MARCA','NOMBRE_MARCA'],[2,'AUDI'])) 
     	echo "Se ha realizado la inserccion";
