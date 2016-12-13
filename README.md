@@ -41,7 +41,7 @@ Ejemplo:
     	echo "NO se ha podido insertar";
 ```
 
-## insertarParcial(TABLA,ARRAY_DE_ELEMENTOS)
+## insertarParcial(TABLA,ARRAY_DE_CAMPOS,ARRAY_DE_ELEMENTOS)
 insertarParcial recibe el nombre de una tabla, los campos que seran insertados (pueden ir desordenados) y un array de elementos que seran insertados en dicha tabla (siguiendo el orden del array anterior), hay que tener cuidado pues hay ciertos campos que por definición son NOT NULL  y por tanto obligatoriamente deberán ser insertados ya que si no esta insercción fallará.
 
 Devuelve true si se ha podido realizar la inserccion y false si no ha sido posible
@@ -54,7 +54,7 @@ Ejemplo:
     else 
     	echo "NO se ha podido insertar";
  ```
-##consultarTodos(ARRAY_DE_TABLA,ARRAY_DE_CONDICIONES,ARRAY_DE_PARAMETROS)
+## consultarTodos(ARRAY_DE_TABLA,ARRAY_DE_CONDICIONES,ARRAY_DE_PARAMETROS)
 Para usar consultarTodos es obligatorio indicar al menos una tabla donde hacer la consulta (soporta array de tablas permitiendo hacer joins entre ellas), mientras que puedo omitir las condiciones y los parametros, en caso de utilizar condiciones y parametros debes pasarselas mediante un array, como he indicado anteriormente soporta joins.
 
 Devuelve un array bidimensional con los datos obtenidos o un array vacio en caso de no poder realizar la consulta.
@@ -65,9 +65,57 @@ $resultado=$bd->consultarTodos(['MARCA']);
 print_r($resultado);
 ```
 
+## borrar(TABLA,ARRAY_DE_CONDICIONES)
+Para usar borrar es obligatorio indicar la tabla mientras que puedo omitir las condiciones, en caso de utilizar condiciones debes pasarselas mediante un array.
 
+Devuelve true si se ha podido realizar el borrado y false si no ha sido posible
+
+Ejemplo:
+```php
+ if ($bd->borrar('MARCA',['ID_MARCA=1'])) 
+        echo "Se ha borrado correctamente";
+    else 
+        echo "NO se ha podido borrar";
+```
+
+## contar(TABLA, ARRAY_DE_CONDICIONES)
+
+Para usar contar es obligatorio indicar la tabla mientras que puedo omitir las condiciones. En caso de utilizar condiciones debes pasarselas mediante un array.
+
+El resultado devuelto por esta funcion será un numero, resultado de contar las ocurrencias de los campos establecidos en el array de condiciones o de todos los campos si se omite dicho valor
+
+Ejemplo: 
+```php
+$num_registros=$bd->contar('MARCA'); 
+echo "En la tabla MARCA hay ".$num_registros." registros";
+```
+
+## consultaRegistro(TABLA,ARRAY_DE_CONDICIONES)
+
+Para usar consultarRegistro es obligatorio indicar la tabla mientras que puedo omitir las condiciones, en caso de utilizar condiciones debes pasarselas mediante un array, el resultado devuelto por esta funcion será un array unidimensional, en caso de que el resultado obtenido tuviese varios registros, solo será devuelto el primero.
+
+En caso de error o de no producir resultado la consulta, devolverá un array vacio.
+
+Ejemplo: 
+```php
+$resultado=$bd->consultaRegistro("MARCA",['ID_MARCA=3']);
+echo $resultado['ID_MARCA'];
+echo $resultado['NOMBRE_MARCA'];
+```
+
+## consultaUno(TABLA, ARRAY_DE_CONDICIONES, VALOR_DEVUELTO)
+
+Para usar consultarUno es obligatorio indicar la tabla mientras que puedo omitir las condiciones, en caso de utilizar
+condiciones debes pasarselas mediante un array, el resultado devuelto por esta funcion será un unico valor, en caso de que el resultado obtenido tuviese varios valores/registros, solo será devuelto el primer valor obtenido.
+
+Ejemplo: 
+```php
+$resultado=$bd->consultaUno("MARCA",[],"COUNT(*)");
+echo $resultado;
+```
 
 ## Licencia
+
 
 CopyLeft 2016 Juan Ferrer / juanferrer437@hotmail.com / Murcia / España
 

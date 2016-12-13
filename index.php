@@ -11,5 +11,9 @@ echo "<hr>";
 $resultado=$bd->consultarTodos(['MARCA']);
 print_r($resultado);
 
+$bd->borrar('MARCA',['ID_MARCA=1']);
+
+$num_registros=$bd->contar('MARCA'); 
+echo "En la tabla MARCA hay ".$num_registros." registros";
 
  ?>

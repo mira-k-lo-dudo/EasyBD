@@ -69,7 +69,7 @@ public function insertarParcial($tabla,$campos,$elementos) {
 		{
 		$queinsertar="(";
 			foreach($campos as $campo) {
-				$queinsertar=$queinsertar."'$campo', ";
+				$queinsertar=$queinsertar."'".$campo."', ";
 			}
 		$queinsertar= substr($queinsertar, 0, -1);
 		$queinsertar=$queinsertar.")";
@@ -135,16 +135,16 @@ public function consultarTodos($tablas,$condiciones=[],$parametros=[]) {
 
 	if (count($condiciones)==0)
 	{
-	$consulta=substr($consulta,0,-6);	
+		$consulta=substr($consulta,0,-6);	
 	}
 	else {
-	foreach ($condiciones as $dato) {
-		$consulta=$consulta.$dato." AND ";
+		foreach ($condiciones as $dato) {
+			$consulta=$consulta.$dato." AND ";
 		
 	}
 		$consulta=substr($consulta,0,-5);	
 	}
-	//echo $consulta;
+	
 	try {
 	$resultado=$this->bd->query($consulta)->fetchAll();
 		} catch (PDOException $e) {
@@ -178,10 +178,11 @@ public function borrar($tabla,$condiciones=[]) {
 	} else return false;
 }
 
-/* Para usar consultarTodos es obligatorio indicar la tabla 
+/* Para usar contar es obligatorio indicar la tabla 
 mientras que puedo omitir las condiciones, en caso de utilizar
 condiciones debes pasarselas mediante un array, el resultado devuelto
-por esta funcion será un array unidimensional */
+por esta funcion será el numero de ocurrencias de la condiciones o de todos
+los campos en caso de omitirse las condiciones */
 
 public function contar($tabla,$condiciones=[]) {
 	if ($this->existe($tabla))  {
@@ -189,10 +190,11 @@ return $this->consultaUno($tabla,$condiciones,"COUNT(*)");
 } else return false;
 }
 
-/* Para usar consultarTodos es obligatorio indicar la tabla 
+/* Para usar consultarRegistro es obligatorio indicar la tabla 
 mientras que puedo omitir las condiciones, en caso de utilizar
 condiciones debes pasarselas mediante un array, el resultado devuelto
-por esta funcion será un array unidimensional */
+por esta funcion será un array unidimensional, en caso de que el resultado obtenido tuviese
+varios registros, solo será devuelto el primero */
 
 public function consultaRegistro($tabla,$condiciones=[]) {
 	if ($this->existe($tabla))  {
